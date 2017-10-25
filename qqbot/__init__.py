@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+# We need to use utf-8
+# dot means local???
+# 
 from .qqbotcls import QQBot, QQBotSlot, QQBotSched, RunBot, _bot
 from .qterm import QTerm
 from .common import AutoTest

@@ -15,6 +15,7 @@
 # 然后正常操作QQbot的qq命令来热插拔你正在编写的插件。
 
 
+# Need to load username, qq num, plugin, fetch all ppl, debug
 # 指定启动参数。详细请参见 qqbot 命令的帮助 （qqbot --help）。
 args = [
     # 用户名
@@ -39,6 +40,9 @@ args = [
 
 if __name__ == "__main__":
     # 注意：此时重启功能无法使用
+    # get bot from qqbot
     from qqbot import _bot as bot
+    # Login with credentital
     bot.Login(args)
+    # bot run
     bot.Run()

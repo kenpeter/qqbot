@@ -35,6 +35,7 @@
 
 - `g.name` ： str 对象，当设置了备注名时为备注名，否则为原始名，当无法获取时为 'uin'+g.uin
 
+-- group code
 - `g.gcode` ： str 对象，群的 gcode （获取群成员时需要用到此值），当无法获取时为 '#NULL'
 
 

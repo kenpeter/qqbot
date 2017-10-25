@@ -1,12 +1,17 @@
 ﻿# -*- coding: utf-8 -*-
 
+#
 import sys, os
+#
 p = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#
 if p not in sys.path:
     sys.path.insert(0, p)
 
+#
 version = 'v2.3.5'
 
+#
 sampleConfStr = '''
 {
 
@@ -18,47 +23,61 @@ sampleConfStr = '''
     
     # 用户 somebody 的配置
     "somebody" : {
-        
+
+        # terminal server port 8188       
         # QQBot-term （HTTP-API） 服务器端口号（该服务器监听 IP 为 127.0.0.1 ）
         # 设置为 0 则不会开启本服务器（此时 qq 命令和 HTTP-API 接口都无法使用）。
         "termServerPort" : 8188,
         
+        # QR code, http server
         # 二维码 http 服务器 ip，请设置为公网 ip 或空字符串
         "httpServerIP" : "",
         
+        # QR code, 8189
         # 二维码 http 服务器端口号
         "httpServerPort" : 8189,
         
+        # qq num
         # 自动登录的 QQ 号
         "qq" : "3497303033",
         
+        # qq mail box
         # 接收二维码图片的邮箱账号
         "mailAccount" : "3497303033@qq.com",
         
+        # mail box
         # 该邮箱的 IMAP/SMTP 服务授权码
         "mailAuthCode" : "feregfgftrasdsew",
         
+        # no cli for QR code
         # 是否以文本模式显示二维码
         "cmdQrcode" : False,
     
+        # No debug
         # 显示/关闭调试信息
         "debug" : False,
 
+        # Can restart when it is down.
         # QQBot 掉线后自动重启
         "restartOnOffline" : False,
         
+        # Can run in background
         # 在后台运行 qqbot ( daemon 模式)
         "daemon": False,
         
+        # Get everyones then start
         # 完成全部联系人列表获取之后才启动 QQBot 
         "startAfterFetch" : False,
         
+        # Plugin
         # 插件目录
         "pluginPath" : ".",
         
+        # Load pluings, when start
         # 启动时需加载的插件
         "plugins" : [],
         
+        # plugin config
         # 插件的配置（由用户自定义）
         "pluginsConf" : {},
     
@@ -98,6 +117,7 @@ sampleConfStr = '''
 }
 '''
 
+# Real config
 rootConf = {
     "termServerPort" : 8188,
     "httpServerIP" : "",
@@ -458,6 +478,8 @@ class QConf(object):
     def SetQQ(self, qq):
         self.qq = qq
     
+    # Write qq num into file.
+    # qq(123456) file
     def StoreQQ(self):
         if not self.qq:
             return
@@ -476,6 +498,7 @@ class QConf(object):
         if not os.path.exists(fn):
             return self.qq
 
+        # Try, then exception or else
         try:
             with open(fn, 'r') as f:
                 qq = f.read()
@@ -492,6 +515,7 @@ class QConf(object):
 
         return qq
     
+    # Can run in background
     def Daemonize(self):
         if daemonable:
             logfile = self.absPath('daemon-%s.log' % self.qq)

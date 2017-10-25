@@ -7,49 +7,92 @@ Website -- https://github.com/pandolia/qqbot/
 Author  -- pandolia@yeah.net
 """
 
+# SmartQQ == web qq
+# sys is collection of funcs
+# os is more like linux
+# posix is like ES6 standard.
 import sys, os
+
+# Get root dir
 p = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# sys.path is a list, we insert the root into index 0
 if p not in sys.path:
     sys.path.insert(0, p)
 
+# subprocess == sub program
+# time func
 import sys, subprocess, time
+
+# Cron runs in background
 from apscheduler.schedulers.background import BackgroundScheduler
+
+# Fire cron start
 from apscheduler.triggers.cron import CronTrigger
+
+# Collection
 from collections import defaultdict
 
+# qq config
 from qqbot.qconf import QConf
+
+# log error
 from qqbot.utf8logger import INFO, CRITICAL, ERROR, WARN
+
+# session
 from qqbot.qsession import QLogin, RequestError
+
+# Thread
 from qqbot.common import StartDaemonThread, Import
+
+# Bot has a server
 from qqbot.qterm import QTermServer
+
+# loop and put?
 from qqbot.mainloop import MainLoop, Put
+
+# QQ group manager
 from qqbot.groupmanager import GroupManager
+
+# bot terminal
 from qqbot.termbot import TermBot
 
+# Code like web server code.
 RESTART = 201
 FRESH_RESTART = 202
 LOGIN_EXPIRE = 203
 
+# Key value, dic
 codeInfo = {
     0: 'stop', 201: 'restart', 202: 'fresh-restart', 203: 'login-expire'
 }
 
+# Get stop, restart, fresh-restart
 def getReason(code):
     return codeInfo.get(code, 'system-exit')
 
+# run bot with arg
 def runBot(argv):
+    # argv -1, sub program call
     if sys.argv[-1] == '--subprocessCall':
+        # Remove the last item
         sys.argv.pop()
         try:
+            # Bot login, run
+            # QQBot is defined below.
             bot = QQBot._bot
             bot.Login(argv)
             bot.Run()
         finally:
+            # Finally, always run, no matter what
+            # If bot has conf, bot conf storeQQ
             if hasattr(bot, 'conf'):
                 bot.conf.StoreQQ()
     else:
+        # Not sub program called
         conf = QConf()
         
+        # QQ run in background
         if conf.daemon:
             conf.Daemonize()
 
@@ -101,10 +144,14 @@ def _call(func, *args, **kwargs):
         ERROR('', exc_info=True)
         ERROR('执行 %s.%s 时出错，%s', func.__module__, func.__name__, e)
 
+# Define a class, group, terminal
 class QQBot(GroupManager, TermBot):
 
+    # this class, arg
     def Login(self, argv=None):
+        # init bot
         self.init(argv)
+
         session, contactdb = QLogin(self.conf)
         self.session, self.contactdb = session, contactdb
 
