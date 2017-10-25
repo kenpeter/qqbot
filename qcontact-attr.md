@@ -1,16 +1,22 @@
 好友的属性（ Buddy 对象）
 -----------------------------------------------
 
+-- Friend type
 - `b.ctype` : str 对象，联系人类型，永远为 'buddy'
 
+-- QQ num
 - `b.qq` : str 对象，好友的 QQ ，当无法获取时为 '#NULL'
 
+-- uuid for buddy
 - `b.uin` : str 对象，好友的 uin ，每次登录时分配的一个随机 id 
 
+-- buddy nick name
 - `b.nick` : str 对象，好友的昵称，当无法获取时为 '#NULL'
 
+-- buddy alias
 - `b.mark` : str 对象，好友的备注名，当无法获取时为 '#NULL'
 
+-- buddy name
 - `b.name` ： str 对象，当设置了备注名时为备注名，否则为昵称，当无法获取时为 'uin'+b.uin
 
 
